@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Attendance</title>
+</head>
+
+<body>
+
+<h2>Mark Attendance</h2>
+
+<form action="/submit_attendance" method="post">
+
+<table border="1">
+
+<tr>
+<th>Roll</th>
+<th>Name</th>
+<th>Present</th>
+<th>Absent</th>
+</tr>
+
+{% for s in students %}
+
+<tr>
+
+<td>{{s.roll}}</td>
+<td>{{s.name}}</td>
+
+<td>
+<input type="radio" name="{{s.id}}" value="Present">
+</td>
+
+<td>
+<input type="radio" name="{{s.id}}" value="Absent">
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<br>
+
+<button type="submit">Submit Attendance</button>
+
+</form>
+
+</body>
+</html>

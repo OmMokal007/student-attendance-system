@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dashboard</title>
+</head>
+
+<body>
+
+<h2>Select Class</h2>
+
+<form action="/attendance" method="post">
+
+<label>Class</label><br>
+<select name="class">
+<option>IT</option>
+<option>CS</option>
+</select>
+
+<br><br>
+
+<label>Year</label><br>
+<select name="year">
+<option>FY</option>
+<option>SY</option>
+<option>TY</option>
+</select>
+
+<br><br>
+
+<label>Division</label><br>
+<select name="division">
+<option>A</option>
+<option>B</option>
+</select>
+
+<br><br>
+
+<button type="submit">Load Students</button>
+
+</form>
+
+<br><br>
+
+<a href="/report">View Attendance Report</a>
+
+<br>
+
+<a href="/admin">Admin Dashboard</a>
+
+</body>
+</html>
