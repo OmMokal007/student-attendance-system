@@ -84,26 +84,28 @@ def submit_attendance():
 @app.route('/admin')
 def admin():
 
-    cursor = db.cursor(dictionary=True)
-
+    cursor = db.cursor()
     today = date.today()
 
     # total students
-    cursor.execute("SELECT COUNT(*) as total FROM students")
-    total = cursor.fetchone()['total']
+    cursor.execute("SELECT COUNT(*) FROM students")
+    total = cursor.fetchone()[0]
 
-    # today's absent students list
-    query = """
-    SELECT students.name
-    FROM attendance
-    JOIN students ON students.id = attendance.student_id
-    WHERE attendance.status='Absent' AND attendance.date=%s
-    """
+    # present today
+    cursor.execute(
+        "SELECT COUNT(DISTINCT student_id) FROM attendance WHERE status='Present' AND date=%s",
+        (today,)
+    )
+    present = cursor.fetchone()[0]
 
-    cursor.execute(query, (today,))
-    absent_students = cursor.fetchall()
+    # absent today
+    cursor.execute(
+        "SELECT COUNT(DISTINCT student_id) FROM attendance WHERE status='Absent' AND date=%s",
+        (today,)
+    )
+    absent = cursor.fetchone()[0]
 
-    return render_template("admin.html", total=total, absent_students=absent_students)
+    return render_template("admin.html", total=total, present=present, absent=absent)
 
 
 # ---------------- ATTENDANCE REPORT ----------------
